@@ -3,12 +3,13 @@ title: "Interactive rstats - UAB Biostatistics 626"
 author: "Kenton Russell"
 date: "October 11, 2016"
 output:
+  pdf_document: default
   revealjs::revealjs_presentation:
     center: yes
     highlight: pygments
     mathjax: null
     theme: night
-  pdf_document: default
+always_allow_html: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -239,12 +240,30 @@ plot_ly(
 )
 ```
 
+## sunburst
+
+```{r}
+library(sunburstR)
+sequences <- read.csv(
+  system.file("examples/visit-sequences.csv",package="sunburstR")
+  ,header = FALSE
+  ,stringsAsFactors = FALSE
+)
+
+htmltools::tags$div(
+  style = "background-color:white; text-align:right;",
+  sunburst(sequences)
+)
+```
+
 ## maps
 
 ```{r}
 library(leaflet)
-
-
+leaflet( width = 400, height = 400) %>%
+  addProviderTiles("Stamen.Toner") %>%
+  setView( -86.8034743, 33.5025432, zoom=17) %>%
+  addMeasure()
 ```
 
 # HTML/CSS/JS in R
